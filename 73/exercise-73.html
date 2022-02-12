@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="Giuseppe Marchesiello">
+  <meta name="description" content="Exercize Html Javascript">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Exercize Html Javascript</title>
+</head>
+
+<body>
+  <div id="container">
+    <h2>Person's List</h2>
+    <table id="person-table">
+      <tbody></tbody>
+    </table>
+    <button id="add-row">Add row</button>
+  </div>
+</body>
+
+</html>
+
+<script>
+  function addRow() {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>firstName</td>\n<td>lastName</td>\n<td>age</td>';
+    document.querySelector('tbody').append(tr);
+  }
+  document.getElementById('add-row').addEventListener('click', addRow);
+</script>

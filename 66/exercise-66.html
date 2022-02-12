@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="Giuseppe Marchesiello">
+  <meta name="description" content="Exercize Html Javascript">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Exercize Html Javascript</title>
+</head>
+
+<body>
+  <div id="container">
+    <ul class="todo-list"></ul>
+  </div>
+</body>
+
+</html>
+
+<script>
+  async function toDoGenerator() {
+    try {
+      const url = new URL('https://jsonplaceholder.typicode.com/todos');
+      const response = await fetch(url);
+      const commits = await response.json();
+      commits.forEach(item => {
+        const toDoLi = document.createElement('li');
+        toDoLi.innerHTML = '<p>' + item.title + '</p>';
+        document.querySelector('#container>.todo-list').append(toDoLi);
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+  toDoGenerator();
+</script>

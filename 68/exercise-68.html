@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="Giuseppe Marchesiello">
+  <meta name="description" content="Exercize Html Javascript">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Exercize Html Javascript</title>
+</head>
+
+<body>
+  <div id="container">
+    <form>
+      <div>
+        <label>Title</label>
+        <input type="text" id="todo-title" />
+      </div>
+      <div>
+        <label>Completed</label>
+        <input type="checkbox" id="todo-completed" />
+      </div>
+
+      <button type="submit" id="submit-todo"></button>
+    </form>
+  </div>
+</body>
+
+</html>
+
+<script>
+  async function addPost(post) {
+    const url = new URL("https://jsonplaceholder.typicode.com/posts");
+    try {
+      let response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: post
+      });
+      let result = await response.json();
+      console.log(result);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  function submitFunction(event) {
+    event.preventDefault();
+    post = {};
+    post.title = document.getElementById('todo-title').value;
+    post.completed = document.getElementById('todo-completed').checked;
+    const jsonPost = JSON.stringify(post);
+    addPost(jsonPost);
+  }
+
+  document.getElementById('submit-todo').addEventListener('click', submitFunction);
+</script>

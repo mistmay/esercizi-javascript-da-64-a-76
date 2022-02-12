@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="Giuseppe Marchesiello">
+  <meta name="description" content="Exercize Html Javascript">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Exercize Html Javascript</title>
+</head>
+
+<body>
+  <div id="container" style="display: flex; align-items: center;"></div>
+</body>
+
+</html>
+
+<script>
+  async function idExtractor() {
+    try {
+      const url = new URL('https://jsonplaceholder.typicode.com/todos/4');
+      const id = 4;
+      const response = await fetch(url);
+      const commits = await response.json();
+      if (commits.id === id) {
+        const h2Title = document.createElement('h2');
+        h2Title.innerText = commits.title;
+        const checkbox = document.createElement('input');
+        checkbox.setAttribute('type', "checkbox");
+        checkbox.setAttribute('checked', commits.completed);
+        document.querySelector('#container').append(h2Title);
+        document.querySelector('#container').append(checkbox);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+  idExtractor();
+</script>

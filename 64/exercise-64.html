@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="Giuseppe Marchesiello">
+  <meta name="description" content="Exercize Html Javascript">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Exercize Html Javascript</title>
+</head>
+
+<body>
+  <div id="container">
+    <button type="button" id="fetch-post">Fetch Post</button>
+    <button type="button" id="save-post">Save Post on LocalStorage</button>
+  </div>
+</body>
+
+</html>
+
+<script>
+  const url = new URL('https://jsonplaceholder.typicode.com/posts/1');
+  let json;
+  let check = false;
+  let check2 = false;
+  document.getElementById('fetch-post').addEventListener('click', async function () {
+    if (check2) {
+      document.getElementById('add').remove();
+      check2 = false;
+    }
+    try {
+      const response = await fetch(url);
+      const commits = await response.json();
+      json = commits;
+      check = true;
+      const pMessage = document.createElement('p');
+      pMessage.innerText = "Post successfully Fetched. Ready to save";
+      pMessage.setAttribute("id", "add");
+      check2 = true;
+      document.getElementById('container').after(pMessage);
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
+  document.getElementById('save-post').addEventListener('click', function () {
+    if (check2) {
+      document.getElementById('add').remove();
+      check2 = false;
+    }
+    if (check) {
+      let post = JSON.stringify(json);
+      localStorage.setItem('post', post);
+      check = false;
+      const pMessage = document.createElement('p');
+      pMessage.innerText = "Post successfully saved on local storage. The post was:\n" + post;
+      pMessage.setAttribute("id", "add");
+      check2 = true;
+      document.getElementById('container').after(pMessage);
+    } else {
+      const errorMessage = document.createElement('p');
+      errorMessage.innerText = "Error: There is nothing to Save";
+      errorMessage.setAttribute("id", "add");
+      check2 = true;
+      document.getElementById('container').after(errorMessage);
+    }
+  });
+</script>

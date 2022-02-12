@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="Giuseppe Marchesiello">
+  <meta name="description" content="Exercize Html Javascript">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Exercize Html Javascript</title>
+</head>
+
+<body>
+  <div id="container">
+    <button type="button" id="fetch-post">
+      Fetch Post from LocalStorage
+    </button>
+
+    <h2>Post: <span id="post-title"></span></h2>
+  </div>
+</body>
+
+</html>
+
+<script>
+  /*In the first part of the program I am doing again the fetch in order that everything will work even if someone has never opened the previous file.
+  Only for this reason, I am using an async function*/
+
+  async function fetchAndLocalStorage() {
+    try {
+      const url = new URL('https://jsonplaceholder.typicode.com/posts/1');
+      const response = await fetch(url);
+      const commits = await response.json();
+      localStorage.setItem('post', JSON.stringify(commits));
+      const jsonObj = JSON.parse(localStorage.getItem('post'));
+      document.getElementById('fetch-post').addEventListener('click', function () {
+        document.getElementById('post-title').innerText = jsonObj.title;
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+  fetchAndLocalStorage();
+</script>

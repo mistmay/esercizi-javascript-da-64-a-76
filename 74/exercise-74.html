@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="author" content="Giuseppe Marchesiello">
+  <meta name="description" content="Exercize Html Javascript">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Exercize Html Javascript</title>
+</head>
+
+<body>
+  <div id="container">
+    <h2>Person's Form</h2>
+    <form id="person-form">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>
+
+<script>
+  function divGenerator(labelText, inputId, inputValue) {
+    const div = document.createElement('div');
+    const label = document.createElement('label');
+    label.innerText = labelText;
+    const input = document.createElement('input');
+    input.setAttribute('type', 'text');
+    input.setAttribute('class', 'form-input');
+    input.setAttribute('id', inputId);
+    input.setAttribute('value', inputValue);
+    div.append(label);
+    div.append(input);
+    return div;
+  }
+
+  function initForm() {
+    document.querySelector('#person-form').prepend(divGenerator("Age:", "age", "25"));
+    document.querySelector('#person-form').prepend(divGenerator("Last Name:", "lastName", "Rossi"));
+    document.querySelector('#person-form').prepend(divGenerator("First Name:", "firstName", "Mario"));
+  }
+
+  function submitPersonForm(event) {
+    event.preventDefault();
+    let person = {};
+    Array.from(document.querySelectorAll('.form-input')).forEach(item => {
+      person[item.previousElementSibling.innerText.slice(0, -1)] = item.value;
+    });
+    console.log(person);
+  }
+
+  window.addEventListener("DOMContentLoaded", initForm);
+  document.querySelector('button').addEventListener('click', submitPersonForm);
+</script>
