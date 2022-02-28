@@ -23,22 +23,8 @@
 </html>
 
 <script>
-  /*In the first part of the program I am doing again the fetch in order that everything will work even if someone has never opened the previous file.
-  Only for this reason, I am using an async function*/
-
-  async function fetchAndLocalStorage() {
-    try {
-      const url = new URL('https://jsonplaceholder.typicode.com/posts/1');
-      const response = await fetch(url);
-      const commits = await response.json();
-      localStorage.setItem('post', JSON.stringify(commits));
-      const jsonObj = JSON.parse(localStorage.getItem('post'));
-      document.getElementById('fetch-post').addEventListener('click', function () {
-        document.getElementById('post-title').innerText = jsonObj.title;
-      });
-    } catch (err) {
-      console.log(err.message);
-    }
-  }
-  fetchAndLocalStorage();
+  document.getElementById('fetch-post').addEventListener('click', () => {
+    const jsonObj = JSON.parse(localStorage.getItem('post'));
+    document.getElementById('post-title').innerHTML = jsonObj.title;
+  });
 </script>

@@ -32,9 +32,8 @@
 </html>
 
 <script>
-  let obj = {};
-  Array.from(document.querySelectorAll('.form-input')).forEach(item => {
-    obj[item.previousElementSibling.innerText.slice(0, -1)] = item.value;
+  const byInputClass = document.querySelectorAll('.form-input');
+  byInputClass.forEach(item => {
+    console.log(`${item.previousElementSibling.innerText} ${item.value}\n`);
   });
-  console.log(obj);
 </script>
